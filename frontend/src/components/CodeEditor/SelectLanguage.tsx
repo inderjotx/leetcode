@@ -1,4 +1,5 @@
 import * as React from "react"
+import { supportedLanguages } from "@/config/language"
 
 import {
     Select,
@@ -10,17 +11,24 @@ import {
 } from "@/components/ui/select"
 
 
-export function SelectLanguage() {
+interface SelectLanguageProps {
+    changeLang: (newLang: SupportedLangs) => void
+}
+
+
+export function SelectLanguage({ changeLang }: SelectLanguageProps) {
     return (
-        <Select defaultValue="python" name="lang" >
+        <Select onValueChange={changeLang} defaultValue={supportedLanguages[0]} name="lang" >
             <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Language" />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    <SelectItem value="cpp">C++</SelectItem>
-                    <SelectItem value="python">Python</SelectItem>
-                    <SelectItem value="javascript">JavaScript</SelectItem>
+                    {
+                        supportedLanguages.map((lang) => (
+                            <SelectItem value={lang} key={lang} >{lang}</SelectItem>
+                        ))
+                    }
                 </SelectGroup>
             </SelectContent>
         </Select>

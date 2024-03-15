@@ -26,3 +26,6 @@ interface ApiGatewayResponse {
     //         error: any
     //     }
 }
+
+
+type SupportedLangs = "javascript" | "python" | "cpp"
