@@ -4,13 +4,19 @@ import { API_GATEWAY_CODE_ENDPOINT } from "@/config/endpoints"
 import { CodeExecutionType } from "@/lib/validators/schema"
 
 
+interface ExecuteCodeProps {
+    code: string,
+    lang: SupportedLangs
+}
 
-export async function ExecuteCodeAction(formData: FormData): Promise<ExecuteCodeActionResponse> {
 
-    const code = formData.get('code')
-    const lang = formData.get('lang')
 
-    const result = CodeExecutionType.safeParse({ code, lang })
+
+
+
+export async function ExecuteCodeAction(data: ExecuteCodeProps): Promise<ExecuteCodeActionResponse> {
+
+    const result = CodeExecutionType.safeParse(data)
 
     if (result.success) {
 

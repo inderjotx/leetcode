@@ -16,14 +16,13 @@ export function MonacoEditor({ lang, editorRef, defaultValue }: MonacoEditorProp
 
     // to get value editor.current.getValue()
 
-
     return (
         <Editor
             height="90vh"
             language={lang}
             onMount={handleEditorDidMount}
             defaultValue={defaultValue}
-            theme='nightOwl'
+            theme='monokai'
         />
     )
 }
