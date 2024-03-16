@@ -1,5 +1,6 @@
 'use client'
 import Editor from '@monaco-editor/react';
+import { useTheme } from 'next-themes';
 
 interface MonacoEditorProps {
     lang: SupportedLangs,
@@ -10,6 +11,9 @@ interface MonacoEditorProps {
 export function MonacoEditor({ lang, editorRef, defaultValue }: MonacoEditorProps) {
 
     // todo : introduce type here  
+    const { theme } = useTheme()
+    const editorTheme = theme === 'dark' ? "vs-dark" : "vs-light"
+
     function handleEditorDidMount(editor: any, monaco: any) {
         editorRef.current = editor;
     }
@@ -32,7 +36,7 @@ export function MonacoEditor({ lang, editorRef, defaultValue }: MonacoEditorProp
                 cursorStyle: 'line',
             }}
             defaultValue={defaultValue}
-            theme='vs-dark'
+            theme={editorTheme}
         />
     )
 }

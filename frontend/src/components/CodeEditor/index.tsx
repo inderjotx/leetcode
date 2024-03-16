@@ -13,6 +13,7 @@ import {
     ResizablePanel,
     ResizablePanelGroup,
 } from "@/components/ui/resizable"
+import { useTheme } from 'next-themes';
 
 
 export function CodeEditor() {
