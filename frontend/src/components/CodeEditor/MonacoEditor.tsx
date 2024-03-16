@@ -18,11 +18,21 @@ export function MonacoEditor({ lang, editorRef, defaultValue }: MonacoEditorProp
 
     return (
         <Editor
+            className='z-20'
             height="90vh"
             language={lang}
             onMount={handleEditorDidMount}
+            options={{
+                minimap: {
+                    enabled: false,
+                },
+                selectOnLineNumbers: true,
+                roundedSelection: false,
+                readOnly: false,
+                cursorStyle: 'line',
+            }}
             defaultValue={defaultValue}
-            theme='monokai'
+            theme='vs-dark'
         />
     )
 }
