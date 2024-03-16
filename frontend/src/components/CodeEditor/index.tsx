@@ -1,5 +1,4 @@
 'use client'
-
 import React, { useRef, useState } from 'react'
 
 import { SelectLanguage } from './SelectLanguage';
@@ -16,30 +15,30 @@ import {
     ResizablePanelGroup,
 } from "@/components/ui/resizable"
 import { EditorWrapper } from './EditorWrapper';
+import { Code2 } from 'lucide-react';
 
 
 export function CodeEditor() {
 
-    // todo: fix to null or monoco instance
-    const ref = useRef<any>(null)
+    const [code, setCode] = useState<string>("")
+
     const [curLang, setLang] = useState<SupportedLangs>("python")
     const [result, setResult] = useState<string>("")
 
 
     async function handleClick() {
-        console.log(curLang)
-        console.log(ref.current.getValue())
 
+        console.log(code)
 
-        const response = await ExecuteCodeAction({ lang: curLang, code: ref.current.getValue() })
-        if (response.success && response.result && response.result.result) {
-            console.log(response.result.result)
-            setResult(response.result?.result)
-        }
-        else {
-            console.log(response.error)
-            setResult(response.error)
-        }
+        // const response = await ExecuteCodeAction({ lang: curLang, code: code })
+        // if (response.success && response.result && response.result.result) {
+        //     console.log(response.result.result)
+        //     setResult(response.result?.result)
+        // }
+        // else {
+        //     console.log(response.error)
+        //     setResult(response.error)
+        // }
 
     }
 
@@ -51,8 +50,8 @@ export function CodeEditor() {
                 <Button type="button" onClick={handleClick}>Submit </Button>
                 <SelectLanguage changeLang={(value: SupportedLangs) => setLang(value)} />
             </div>
-            <EditorWrapper height='h-96' width='w-full' >
-                <MonacoEditor editorRef={ref} defaultValue='' lang={curLang} />
+            <EditorWrapper Icon={Code2} height='h-[530px]' width='w-full' className='' >
+                <MonacoEditor value={code} setValue={setCode} defaultValue='' lang={curLang} />
             </EditorWrapper>
         </div>
     )
@@ -62,15 +61,3 @@ export function CodeEditor() {
 
 
 
-
-{/* <Button type="button" onClick={handleClick}>Submit </Button>
-<SelectLanguage changeLang={(value: SupportedLangs) => setLang(value)} /> */}
-// <ResizablePanelGroup direction='vertical' className='h-full w-full' >
-//     <ResizablePanel defaultSize={80} >
-//         <MonacoEditor editorRef={ref} defaultValue='' lang={curLang} />
-//     </ResizablePanel>
-//     <ResizableHandle withHandle />
-//     <ResizablePanel defaultSize={20}   >
-//         {result}
-//     </ResizablePanel>
-// </ResizablePanelGroup>

@@ -28,4 +28,4 @@ interface ApiGatewayResponse {
 }
 
 
-type SupportedLangs = "javascript" | "python" | "cpp"
+type SupportedLangs = "javascript" | "python" | "cpp" | "json"

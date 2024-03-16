@@ -1,41 +1,47 @@
 'use client'
-import Editor from '@monaco-editor/react';
+import { Editor, loader } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
+import { useState } from 'react';
 
 interface MonacoEditorProps {
     lang: SupportedLangs,
-    editorRef?: any
-    defaultValue: string
+    value: string,
+    setValue: React.Dispatch<React.SetStateAction<any>>,
+    activeFile?: string
 }
 
 
 
-export function MonacoEditor({ lang, editorRef, defaultValue }: MonacoEditorProps) {
+export function MonacoEditor({ lang, value, setValue, activeFile }: MonacoEditorProps) {
 
     const { theme } = useTheme()
 
     const editorTheme = (theme === 'dark') ? "vs-dark" : "vs-light"
 
 
-    function handleEditorDidMount(editor: any, monaco: any) {
 
-        if (editorRef) {
-            editorRef.current = editor;
+    function handleChange(val: (string | undefined)) {
+        if ((val == "" || val) && activeFile) {
+            setValue((prev: any) => ({ ...prev, [activeFile]: val }))
+
+        }
+        else if (val == "" || val) {
+            setValue(val)
         }
     }
-
 
 
     // to get value editor.current.getValue()
     return (
         <Editor
             language={lang}
-            onMount={handleEditorDidMount}
-            defaultValue={defaultValue}
             theme={editorTheme}
+            value={value}
+            onChange={handleChange}
             options={{
                 minimap: { enabled: false }
             }}
+            beforeMount={() => loader.init()}
 
         />
     )

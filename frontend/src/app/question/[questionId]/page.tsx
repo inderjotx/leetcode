@@ -13,34 +13,17 @@ import { Suspense } from "react";
 export default function Question(params: { params: { questionId: string } }) {
 
     return (
-        <div className="w-full h-full flex">
-            <ResizablePanelGroup direction="horizontal"  >
-                <ResizablePanel minSize={10} defaultSize={40} >
-                    Question data
-                </ResizablePanel>
+        <ResizablePanelGroup direction="horizontal" className="px-4" >
+            <ResizablePanel minSize={5} defaultSize={40} >
+                Question data
+            </ResizablePanel>
 
-                <ResizableHandle withHandle />
-                <ResizablePanel minSize={10} defaultSize={60} >
-                    <Suspense fallback={<LoadingCodeEditor />} >
-                        <CodeEditor />
-                    </Suspense>
-                </ResizablePanel>
-
-            </ResizablePanelGroup>
-        </div>
+            <ResizableHandle withHandle className="bg-background" />
+            <ResizablePanel minSize={5} defaultSize={60} >
+                <Suspense fallback={<LoadingCodeEditor />} >
+                    <CodeEditor />
+                </Suspense>
+            </ResizablePanel>
+        </ResizablePanelGroup>
     )
 }
-
-
-// <div className="h-screen w-full flex "
-//   <div className="flex flex-col w-1/2 h-full ">
-//     <div>question</div>
-//     <div>description</div>
-//     <div>testcase1</div>
-//     <div>testcase2</div>
-//     <div>some tags and suggestions ... </div>
-//   </div>
-//   <div className="flex flex-col w-1/2 h-full gap-2 px-3 py-3">
-//     <CodeEditor />
-//   </div>
-// </div>);
