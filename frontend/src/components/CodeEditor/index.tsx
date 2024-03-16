@@ -8,12 +8,15 @@ import { ExecuteCodeAction } from '@/actions/executeCode';
 // ui
 import { Button } from "@/components/ui/button";
 import { MonacoEditor } from './MonacoEditor';
+
+
 import {
     ResizableHandle,
     ResizablePanel,
     ResizablePanelGroup,
 } from "@/components/ui/resizable"
 import { useTheme } from 'next-themes';
+import dynamic from 'next/dynamic';
 
 
 export function CodeEditor() {
@@ -41,18 +44,20 @@ export function CodeEditor() {
 
     return (
 
-        <ResizablePanelGroup direction='vertical' className='h-full w-full' >
-            <ResizablePanel defaultSize={80} >
-                <div className="flex items-center justify-between py-3">
-                    <Button type="button" onClick={handleClick}>Submit </Button>
-                    <SelectLanguage changeLang={(value: SupportedLangs) => setLang(value)} />
-                </div>
-                <MonacoEditor editorRef={ref} defaultValue='' lang={curLang} />
-            </ResizablePanel>
-            <ResizableHandle withHandle />
-            <ResizablePanel defaultSize={20}   >
-                {result}
-            </ResizablePanel>
-        </ResizablePanelGroup>
+        <div className='w-full h-full'>
+            <div className="flex items-center justify-between py-3">
+                <Button type="button" onClick={handleClick}>Submit </Button>
+                <SelectLanguage changeLang={(value: SupportedLangs) => setLang(value)} />
+            </div>
+            <ResizablePanelGroup direction='vertical' className='h-full w-full' >
+                <ResizablePanel defaultSize={80} >
+                    <MonacoEditor editorRef={ref} defaultValue='' lang={curLang} />
+                </ResizablePanel>
+                <ResizableHandle withHandle />
+                <ResizablePanel defaultSize={20}   >
+                    {result}
+                </ResizablePanel>
+            </ResizablePanelGroup>
+        </div>
     )
 }

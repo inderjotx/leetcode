@@ -8,6 +8,16 @@ interface MonacoEditorProps {
     defaultValue: string
 }
 
+
+// const myDarkTheme = {
+//     base: 'vs-dark',
+//     inherit: true,
+//     rules: [
+//         { background: '#020817' },
+//     ],
+// };
+
+
 export function MonacoEditor({ lang, editorRef, defaultValue }: MonacoEditorProps) {
 
     // todo : introduce type here  
@@ -15,11 +25,11 @@ export function MonacoEditor({ lang, editorRef, defaultValue }: MonacoEditorProp
     const editorTheme = theme === 'dark' ? "vs-dark" : "vs-light"
 
     function handleEditorDidMount(editor: any, monaco: any) {
-        editorRef.current = editor;
+
+        editorRef.current = monaco.editor;
     }
 
     // to get value editor.current.getValue()
-
     return (
         <Editor
             className='z-20'

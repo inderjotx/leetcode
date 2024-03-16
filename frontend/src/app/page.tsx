@@ -19,7 +19,7 @@ export default function Home() {
       <ResizablePanelGroup direction="horizontal" className="h-screen w-full" >
         <ResizablePanel defaultSize={40} >One</ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel className="z-10" defaultSize={60} minSize={50}  >
+        <ResizablePanel defaultSize={60} minSize={50}  >
           <Suspense fallback={<LoadingCodeEditor />} >
             <CodeEditor />
           </Suspense>
