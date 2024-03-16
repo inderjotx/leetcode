@@ -15,8 +15,7 @@ import {
     ResizablePanel,
     ResizablePanelGroup,
 } from "@/components/ui/resizable"
-import { useTheme } from 'next-themes';
-import dynamic from 'next/dynamic';
+import { EditorWrapper } from './EditorWrapper';
 
 
 export function CodeEditor() {
@@ -30,12 +29,15 @@ export function CodeEditor() {
     async function handleClick() {
         console.log(curLang)
         console.log(ref.current.getValue())
-        const response = await ExecuteCodeAction({ lang: curLang, code: ref.current.getValue() })
 
+
+        const response = await ExecuteCodeAction({ lang: curLang, code: ref.current.getValue() })
         if (response.success && response.result && response.result.result) {
+            console.log(response.result.result)
             setResult(response.result?.result)
         }
         else {
+            console.log(response.error)
             setResult(response.error)
         }
 
@@ -44,20 +46,31 @@ export function CodeEditor() {
 
     return (
 
-        <div className='w-full h-full'>
-            <div className="flex items-center justify-between py-3">
+        <div className='w-full h-full flex flex-col '>
+            <div className='flex justify-between '>
                 <Button type="button" onClick={handleClick}>Submit </Button>
                 <SelectLanguage changeLang={(value: SupportedLangs) => setLang(value)} />
             </div>
-            <ResizablePanelGroup direction='vertical' className='h-full w-full' >
-                <ResizablePanel defaultSize={80} >
-                    <MonacoEditor editorRef={ref} defaultValue='' lang={curLang} />
-                </ResizablePanel>
-                <ResizableHandle withHandle />
-                <ResizablePanel defaultSize={20}   >
-                    {result}
-                </ResizablePanel>
-            </ResizablePanelGroup>
+            <EditorWrapper height='h-96' width='w-full' >
+                <MonacoEditor editorRef={ref} defaultValue='' lang={curLang} />
+            </EditorWrapper>
         </div>
     )
 }
+
+
+
+
+
+
+{/* <Button type="button" onClick={handleClick}>Submit </Button>
+<SelectLanguage changeLang={(value: SupportedLangs) => setLang(value)} /> */}
+// <ResizablePanelGroup direction='vertical' className='h-full w-full' >
+//     <ResizablePanel defaultSize={80} >
+//         <MonacoEditor editorRef={ref} defaultValue='' lang={curLang} />
+//     </ResizablePanel>
+//     <ResizableHandle withHandle />
+//     <ResizablePanel defaultSize={20}   >
+//         {result}
+//     </ResizablePanel>
+// </ResizablePanelGroup>
