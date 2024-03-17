@@ -1,7 +1,7 @@
 import React from 'react'
 import { ThemeToggle } from '../ThemeToggle'
 import { Button } from '../ui/button'
-import { auth, signIn } from '@/lib/auth'
+import { auth, signIn, signOut } from '@/lib/auth'
 
 export async function Navbar() {
 
@@ -11,23 +11,29 @@ export async function Navbar() {
 
 
     return (
-        <nav className='sticky border-b top-0 px-6 h-16 w-full flex justify-between items-center  '>
+        <nav className='sticky z-10   backdrop-blur-lg border-b top-0 px-6 h-16 w-full flex justify-between items-center  '>
             <h1 className='text-xl'>Logo</h1>
 
             <form
                 className='flex justify-between gap-3 items-center '
                 action={async () => {
                     "use server"
-                    await signIn()
+
+                    if (user) {
+                        await signOut()
+                    }
+                    else {
+                        await signIn()
+                    }
                 }} >
                 {
                     user ?
                         <Button size={"sm"}>
-                            SignIn
+                            SignOut
                         </Button>
                         :
                         <Button size={"sm"}>
-                            SignOut
+                            SignIn
                         </Button>
 
                 }

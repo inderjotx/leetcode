@@ -51,7 +51,7 @@ export function CodeEditor() {
                 <SelectLanguage changeLang={(value: SupportedLangs) => setLang(value)} />
             </div>
             <EditorWrapper Icon={Code2} height='h-[530px]' width='w-full' className='' >
-                <MonacoEditor value={code} setValue={setCode} defaultValue='' lang={curLang} />
+                <MonacoEditor value={code} setValue={setCode} lang={curLang} />
             </EditorWrapper>
         </div>
     )

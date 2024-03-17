@@ -17,10 +17,6 @@ export const difficultyEnum = pgEnum('difficulty', ['easy', 'medium', 'hard'])
 export const langugageEnum = pgEnum('language', ['cpp', 'python', 'javascript'])
 
 
-
-
-
-
 export const questions = pgTable("question", {
     id: serial("id").primaryKey(),
     title: text("title").notNull(),
@@ -33,7 +29,6 @@ export const questions = pgTable("question", {
         difficulty_idx: index("difficulty_idx").on(table.difficulty)
     })
 )
-
 
 
 export const validationSchema = pgTable('validationSchema', {

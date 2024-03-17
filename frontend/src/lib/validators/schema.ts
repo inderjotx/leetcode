@@ -7,3 +7,19 @@ export const CodeExecutionType = z.object({
 })
 
 
+//  input and output , varies with question
+const testCasesSechma = z.object({
+    input: z.any(),
+    output: z.any()
+})
+
+
+export const QuestionSchema = z.object({
+    title: z.string().min(5),
+    description: z.string().min(10),
+    hints: z.string().optional(),
+    difficulty: z.enum(['easy', 'medium', 'hard']),
+    testCases: z.array(testCasesSechma),
+})
+
+

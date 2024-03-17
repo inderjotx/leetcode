@@ -12,7 +12,7 @@ interface SectionProps extends HTMLProps<HTMLDivElement> {
 
 export function Section({ Icon, title, children, className, ...props }: SectionProps) {
     return (
-        <div className={cn("flex flex-col gap-4 w-full p-3 px-8 bg-muted-foreground/5 pb-10 rounded-md", className)} {...props}  >
+        <div className={cn("flex flex-col gap-4 w-full bg-secondary   border p-3 px-8  pb-10 rounded-md", className)} {...props}  >
             <IconHeading Icon={Icon} title={title} />
             {children}
         </div>
