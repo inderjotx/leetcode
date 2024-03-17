@@ -6,11 +6,21 @@ import {
     ResizablePanel,
     ResizablePanelGroup,
 } from "@/components/ui/resizable"
+import { getQuestionWithId } from "@/lib/db";
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 
 
-export default function Question(params: { params: { questionId: string } }) {
+export default async function Question({ params }: { params: { questionId: string } }) {
+
+    const question = await getQuestionWithId(parseInt(params.questionId))
+
+    if (!question) {
+        redirect('/')
+        return
+    }
+
 
     return (
         <ResizablePanelGroup direction="horizontal" className="px-4" >

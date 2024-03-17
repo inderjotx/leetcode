@@ -18,6 +18,12 @@ import { EditorWrapper } from './EditorWrapper';
 import { Code2 } from 'lucide-react';
 
 
+interface CodeEditorProps {
+    defaultCode: string
+}
+
+
+
 export function CodeEditor() {
 
     const [code, setCode] = useState<string>("")
@@ -51,7 +57,7 @@ export function CodeEditor() {
                 <SelectLanguage changeLang={(value: SupportedLangs) => setLang(value)} />
             </div>
             <EditorWrapper Icon={Code2} height='h-[530px]' width='w-full' className='border' >
-                <MonacoEditor multiFile={false} defaultValue={code} setValue={setCode} lang={curLang} />
+                <MonacoEditor multiFile={false} value={code} setValue={setCode} lang={curLang} />
             </EditorWrapper>
         </div>
     )
