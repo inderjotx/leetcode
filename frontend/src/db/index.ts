@@ -1,7 +1,6 @@
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres, { Sql } from 'postgres';
-import { users } from '@/db/schema/user';
-import * as userSchema from "@/db/schema/user"
+import { users, questions, solutions, validationSchema, schema } from '@/db/schema';
 
 
 const URL = process.env.DATABASE_URL || ""
@@ -17,10 +16,14 @@ function getClient() {
 
 
 
-export const db = drizzle(globalThis.queryClient || getClient(), { schema: { ...userSchema } });
+export const db = drizzle(globalThis.queryClient || getClient(), { schema: schema });
 
 
 if (!globalThis.queryClient && process.env.NODE_ENV !== "production") globalThis.queryClient = postgres(URL)
 
 
 export type User = typeof users.$inferSelect
+export type Question = typeof questions.$inferSelect
+export type ValidationSchema = typeof validationSchema.$inferSelect
+export type Solution = typeof solutions.$inferSelect
+
