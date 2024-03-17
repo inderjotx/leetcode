@@ -1,18 +1,18 @@
+'use client'
 import { Braces } from "lucide-react";
 import { EditorWrapper } from "../CodeEditor/EditorWrapper";
 import { MonacoEditor } from "../CodeEditor/MonacoEditor";
-
-interface JsonEditorProps {
-  ref?: React.RefObject<any>
-
-}
+import { useCreateQuestion } from "@/store/useCreateQuestion";
 
 
-export function JsonEditor({ ref }: JsonEditorProps) {
+
+export function JsonEditor() {
+
+  const [testCases, setTestCases] = useCreateQuestion((state) => [state.testCases, state.setTestCases])
 
   return (
     <EditorWrapper height="h-[270px]" width="w-full" Icon={Braces} >
-      <MonacoEditor lang="json" defaultValue="" editorRef={ref} />
+      <MonacoEditor lang="json" value={testCases} multiFile={false} setValue={setTestCases} />
     </EditorWrapper>
   )
 }

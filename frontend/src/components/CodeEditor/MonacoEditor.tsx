@@ -1,18 +1,29 @@
 'use client'
 import { Editor, loader } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
-import { useState } from 'react';
 
-interface MonacoEditorProps {
+interface MultiFile<T> {
     lang: SupportedLangs,
-    value: string,
     setValue: React.Dispatch<React.SetStateAction<any>>,
-    activeFile?: string
+    activeFile: string,
+    multiFile: T
+    value: string
+}
+
+interface SingleFile<T> {
+    lang: SupportedLangs,
+    setValue: (val: string) => void,
+    multiFile: T,
+    value: string
 }
 
 
+type EditorProps<TMulti extends boolean> = TMulti extends true ? MultiFile<true> : SingleFile<false>
 
-export function MonacoEditor({ lang, value, setValue, activeFile }: MonacoEditorProps) {
+
+
+
+export function MonacoEditor(data: EditorProps<boolean>) {
 
     const { theme } = useTheme()
 
@@ -21,12 +32,16 @@ export function MonacoEditor({ lang, value, setValue, activeFile }: MonacoEditor
 
 
     function handleChange(val: (string | undefined)) {
-        if ((val == "" || val) && activeFile) {
-            setValue((prev: any) => ({ ...prev, [activeFile]: val }))
 
+        if (val === undefined) return
+
+        if (data.multiFile) {
+
+            data.setValue((prev: any) => ({ ...prev, [data.activeFile]: val }))
         }
-        else if (val == "" || val) {
-            setValue(val)
+
+        else {
+            data.setValue(val)
         }
     }
 
@@ -34,9 +49,9 @@ export function MonacoEditor({ lang, value, setValue, activeFile }: MonacoEditor
     // to get value editor.current.getValue()
     return (
         <Editor
-            language={lang}
+            language={data.lang}
             theme={editorTheme}
-            value={value}
+            value={data.value}
             onChange={handleChange}
             options={{
                 minimap: { enabled: false }

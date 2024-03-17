@@ -1,27 +1,23 @@
-'use client'
 import { Heading } from '@/components/Heading/Heading'
-import { QuestionDescription } from '@/components/Sections/QuestionDescption'
-import QuestionDifficulty from '@/components/Sections/QuestionDifficulty'
-import { QuestionHints } from '@/components/Sections/QuestionHints'
-import QuestionJsonViewer from '@/components/Sections/QuestionJsonViewer'
-import { QuestionTitle } from '@/components/Sections/QuestionTitle'
+import { QuestionDescription } from '@/components/CreateQuestion/Sections/QuestionDescption'
+import QuestionDifficulty from '@/components/CreateQuestion/Sections/QuestionDifficulty'
+import { QuestionHints } from '@/components/CreateQuestion/Sections/QuestionHints'
+import QuestionJsonViewer from '@/components/CreateQuestion/Sections/QuestionJsonViewer'
+import { QuestionTitle } from '@/components/CreateQuestion/Sections/QuestionTitle'
 import { Button } from '@/components/ui/button'
-import React, { useEffect, useRef } from 'react'
+import CreateButton from '@/components/CreateQuestion/CreateButton'
 
 // only admin can add  
 export default function Page() {
-
-    function handleSubmit() {
-    }
 
 
 
 
     return (
-        <div className='h-full w-full flex flex-col  px-4 gap-6'>
+        <div className='h-full w-full flex flex-col my-3  px-4 gap-6'>
             <div className='flex items-center justify-between px-2'>
                 <Heading title='Add Question' description='complete all fields' className='ml-2' />
-                <Button onClick={handleSubmit}>Save</Button>
+                <CreateButton />
 
             </div>
             <div className='w-full h-full grid grid-cols-1 gap-6 md:grid-cols-2'>

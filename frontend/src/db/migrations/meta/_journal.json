@@ -22,6 +22,13 @@
       "when": 1710655745306,
       "tag": "0002_plain_gambit",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1710680111818,
+      "tag": "0003_red_rawhide_kid",
+      "breakpoints": true
     }
   ]
 }

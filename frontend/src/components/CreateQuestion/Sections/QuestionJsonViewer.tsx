@@ -1,7 +1,7 @@
 import React from 'react'
-import { Section } from '../Section'
+import { Section } from '../../Section'
 import { FlaskConical } from 'lucide-react'
-import { JsonEditor } from '../JsonEditor'
+import { JsonEditor } from '../../JsonEditor'
 
 export default function QuestionJsonViewer() {
     return (

@@ -50,8 +50,8 @@ export function CodeEditor() {
                 <Button type="button" onClick={handleClick}>Submit </Button>
                 <SelectLanguage changeLang={(value: SupportedLangs) => setLang(value)} />
             </div>
-            <EditorWrapper Icon={Code2} height='h-[530px]' width='w-full' className='' >
-                <MonacoEditor value={code} setValue={setCode} lang={curLang} />
+            <EditorWrapper Icon={Code2} height='h-[530px]' width='w-full' className='border' >
+                <MonacoEditor multiFile={false} defaultValue={code} setValue={setCode} lang={curLang} />
             </EditorWrapper>
         </div>
     )

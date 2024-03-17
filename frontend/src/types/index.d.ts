@@ -29,3 +29,5 @@ interface ApiGatewayResponse {
 
 
 type SupportedLangs = "javascript" | "python" | "cpp" | "json"
+
+type QuestionDifficulty = "easy" | "medium" | "hard"

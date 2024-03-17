@@ -21,7 +21,7 @@ export const questions = pgTable("question", {
     id: serial("id").primaryKey(),
     title: text("title").notNull(),
     description: text("description").notNull(),
-    hints: text("hints"),
+    hints: text("hints").notNull(),
     difficulty: difficultyEnum('difficulty').notNull(),
     testCases: text("testCases").notNull(),
 },
