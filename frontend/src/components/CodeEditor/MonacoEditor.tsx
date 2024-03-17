@@ -37,7 +37,15 @@ export function MonacoEditor(data: EditorProps<boolean>) {
 
         if (data.multiFile) {
 
-            data.setValue((prev: any) => ({ ...prev, [data.activeFile]: val }))
+            data.setValue(
+                (prev: any) => ({
+                    ...prev,
+                    [data.lang]: {
+                        ...prev[data.lang],
+                        [data.activeFile]: val
+                    }
+                })
+            )
         }
 
         else {

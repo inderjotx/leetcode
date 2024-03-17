@@ -27,7 +27,13 @@ interface ApiGatewayResponse {
     //     }
 }
 
+interface CodeFiles {
+    validationClass: string,
+    userClass: string,
+    solutionClass: string
+}
 
-type SupportedLangs = "javascript" | "python" | "cpp" | "json"
+
+type SupportedLangs = "javascript" | "python" | "cpp"
 
 type QuestionDifficulty = "easy" | "medium" | "hard"

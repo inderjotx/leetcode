@@ -24,6 +24,17 @@ export const QuestionSchema = z.object({
 })
 
 
+export const codeFilesSchema = z.object({
+    validationClass: z.string().min(1),
+    userClass: z.string().min(1),
+    solutionClass: z.string().min(1),
+})
 
+
+export const validationCodeSchema = z.object({
+    questionId: z.number(),
+    language: z.enum(["javascript", "cpp", "python"]),
+    codeFiles: codeFilesSchema
+})
 
 

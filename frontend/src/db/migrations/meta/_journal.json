@@ -29,6 +29,13 @@
       "when": 1710680111818,
       "tag": "0003_red_rawhide_kid",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1710698916383,
+      "tag": "0004_sweet_apocalypse",
+      "breakpoints": true
     }
   ]
 }

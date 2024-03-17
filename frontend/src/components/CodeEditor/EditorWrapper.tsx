@@ -17,8 +17,8 @@ export function EditorWrapper({ children, height, width, className, Icon = Code2
         <div className={cn('flex flex-col rounded-sm bg-white dark:bg-[#1e1e1e]', className)}>
 
             {/* banner */}
-            <nav className='h-6 w-full border-b  flex items-center p-2'>
-                <Icon size={16} color='orange' />
+            <nav className='h-6 w-full border-b text-primary dark:bg-zinc-900 flex items-center p-2'>
+                <Icon size={16} />
             </nav>
 
             {/* editor */}

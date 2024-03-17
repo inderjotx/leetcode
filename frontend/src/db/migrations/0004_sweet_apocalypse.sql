@@ -1,0 +1,1 @@
+ALTER TABLE "validationSchema" ADD CONSTRAINT "validationSchema_questionId_language_pk" PRIMARY KEY("questionId","language");

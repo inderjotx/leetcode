@@ -39,6 +39,7 @@ export const validationSchema = pgTable('validationSchema', {
     userClass: text("userClass").notNull(),
 },
     (table) => ({
+        pk: primaryKey({ columns: [table.questionId, table.language] }),
         questionIdx: index('validation_schema_question_idx').on(table.questionId),
     })
 )
