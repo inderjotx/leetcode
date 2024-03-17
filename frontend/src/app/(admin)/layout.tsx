@@ -17,7 +17,7 @@ export default function layout({ children }: LayoutProps) {
 
 
     return (
-        <div>{
+        <div className='my-6 '>{
             children
         }</div>
     )

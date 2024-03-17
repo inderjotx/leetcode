@@ -1,12 +1,17 @@
 import { Section } from '@/components/Section'
-import { Captions, Heading } from 'lucide-react'
-import React from 'react'
+import { Captions } from 'lucide-react'
 import { Input } from '../ui/input'
 
-export function QuestionTitle() {
+
+
+export const QuestionTitle = () => {
     return (
-        <Section title='Title' Icon={Captions}  >
+        <Section title='Title' Icon={Captions}>
             <Input />
         </Section>
-    )
-}
+    );
+};
+
+
+
+
