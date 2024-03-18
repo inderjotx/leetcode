@@ -9,7 +9,7 @@ import { eq } from "drizzle-orm"
 
 export async function getQuestionTestCases(questionId: number) {
 
-    if (!questionId) {
+    if (questionId) {
 
         try {
 

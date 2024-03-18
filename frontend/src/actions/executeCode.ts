@@ -4,6 +4,8 @@ import { API_GATEWAY_CODE_ENDPOINT } from "@/config/endpoints"
 import { CodeExecutionType } from "@/lib/validators/schema"
 
 import { getQuestionTestCases } from "./getQuestionTestCases"
+import { getValidationCode } from "./getValidationCode"
+import { combineCode } from "@/lib/getUserCode"
 
 interface ExecuteCodeProps {
     code: string,
@@ -23,17 +25,22 @@ export async function ExecuteCodeAction(data: ExecuteCodeProps): Promise<Execute
     if (result.success) {
 
         const testCases = await getQuestionTestCases(result.data.questionId)
+        const validationCode = await getValidationCode(result.data.questionId)
 
 
-        if (!testCases.testCases) {
+        if (!testCases.testCases || !validationCode.success) {
+
+            console.log(testCases)
             return {
                 success: false,
-                error: "No testCases found"
+                error: "No testCases found or no validation code"
             }
         }
 
+
         const payload = {
             ...result.data,
+            code: combineCode(result.data.code, result.data.lang, validationCode.validationData[result.data.lang].validationClass),
             testCases: testCases.testCases
         }
 

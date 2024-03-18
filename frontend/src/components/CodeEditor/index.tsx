@@ -56,15 +56,16 @@ export function CodeEditor({ questionId }: CodeEditorProps) {
 
         console.log(code)
 
-        // const response = await ExecuteCodeAction({ lang: curLang, code: code })
-        // if (response.success && response.result && response.result.result) {
-        //     console.log(response.result.result)
-        //     setResult(response.result?.result)
-        // }
-        // else {
-        //     console.log(response.error)
-        //     setResult(response.error)
-        // }
+        const response = await ExecuteCodeAction({ lang: curLang, code: code, questionId: questionId })
+        if (response.success && response.result && response.result.result) {
+            console.log(response.result.result)
+            setResult(response.result?.result)
+        }
+        else {
+            console.log(response.error)
+            setResult(response.error)
+        }
+
 
     }
 
