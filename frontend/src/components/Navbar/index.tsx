@@ -11,7 +11,7 @@ export async function Navbar() {
 
 
     return (
-        <nav className='sticky z-10   backdrop-blur-lg border-b top-0 px-6 h-16 w-full flex justify-between items-center  '>
+        <nav className='sticky z-10   backdrop-blur-lg border-b top-0 px-6 h-10 w-full flex justify-between items-center  '>
             <h1 className='text-xl'>Logo</h1>
 
             <form

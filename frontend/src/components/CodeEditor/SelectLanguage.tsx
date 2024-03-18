@@ -13,20 +13,21 @@ import {
 
 interface SelectLanguageProps {
     changeLang: (newLang: SupportedLangs) => void
+    lang: SupportedLangs
 }
 
 
-export function SelectLanguage({ changeLang }: SelectLanguageProps) {
+export function SelectLanguage({ changeLang, lang }: SelectLanguageProps) {
     return (
-        <Select onValueChange={changeLang} defaultValue={supportedLanguages[0]} name="lang" >
-            <SelectTrigger className="w-[180px]">
+        <Select onValueChange={changeLang} value={lang} name="lang" >
+            <SelectTrigger className="w-[100px]">
                 <SelectValue placeholder="Language" />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
                     {
                         supportedLanguages.map((lang) => (
-                            <SelectItem value={lang} key={lang} >{lang}</SelectItem>
+                            <SelectItem value={lang} key={lang} > <span className="text-[12px]" > {lang} </span></SelectItem>
                         ))
                     }
                 </SelectGroup>

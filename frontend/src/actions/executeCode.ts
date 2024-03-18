@@ -3,12 +3,12 @@
 import { API_GATEWAY_CODE_ENDPOINT } from "@/config/endpoints"
 import { CodeExecutionType } from "@/lib/validators/schema"
 
-// just for testing 
-import testData from '@/config/example/testCases.json'
+import { getQuestionTestCases } from "./getQuestionTestCases"
 
 interface ExecuteCodeProps {
     code: string,
-    lang: SupportedLangs
+    lang: SupportedLangs,
+    questionId: number
 }
 
 
@@ -22,9 +22,19 @@ export async function ExecuteCodeAction(data: ExecuteCodeProps): Promise<Execute
 
     if (result.success) {
 
+        const testCases = await getQuestionTestCases(result.data.questionId)
+
+
+        if (!testCases.testCases) {
+            return {
+                success: false,
+                error: "No testCases found"
+            }
+        }
+
         const payload = {
             ...result.data,
-            testCases: JSON.stringify(testData)
+            testCases: testCases.testCases
         }
 
 

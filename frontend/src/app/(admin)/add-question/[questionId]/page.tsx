@@ -1,6 +1,7 @@
 'use client'
 
 import { addValidationCode } from "@/actions/addValidationCode";
+import { getValidationCode } from "@/actions/getValidationCode";
 import { EditorWrapper } from "@/components/CodeEditor/EditorWrapper";
 import { MonacoEditor } from "@/components/CodeEditor/MonacoEditor";
 import { Java, Python, Cpp, Javascript } from "@/components/Icons";
@@ -15,15 +16,16 @@ import { cn } from "@/lib/utils";
 import { validationCodeSchema } from "@/lib/validators/schema";
 import { ValidationCodeSchema } from "@/types/zodTypes";
 import { Code2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import useSWR from "swr";
 
 
 
 
 
 
-const data: Record<SupportedLangs, CodeFiles> = {
+const StaticData: Record<SupportedLangs, CodeFiles> = {
     "javascript": {
         validationClass: "",
         userClass: "",
@@ -46,20 +48,40 @@ const data: Record<SupportedLangs, CodeFiles> = {
 }
 
 
-
-
-
-
 export default function Page({ params }: { params: { questionId: string } }) {
 
-    const [codeFiles, setCodeFiles] = useState<Record<SupportedLangs, CodeFiles>>(data)
+    const { data, isLoading } = useSWR<GetValidationCodeResponse<boolean>, any>(`${params.questionId}`, fetcher)
+
+    const [codeFiles, setCodeFiles] = useState<Record<SupportedLangs, CodeFiles>>(StaticData)
 
     const [curLanguage, setLanguage] = useState<SupportedLangs>("javascript")
-
 
     const extension = getExtension(curLanguage)
     const fileNames = Object.keys(codeFiles[curLanguage])
     const [fileNowEditing, setFileNowEditing] = useState<keyof CodeFiles>("validationClass")
+
+
+
+    useEffect(() => {
+
+        if (data && data.success) {
+            setCodeFiles(() => data.validationData)
+        }
+
+
+    }, [data, isLoading])
+
+
+
+    async function fetcher() {
+
+        const data = await getValidationCode(parseInt(params.questionId))
+        return data
+
+    }
+
+
+
 
 
     return (

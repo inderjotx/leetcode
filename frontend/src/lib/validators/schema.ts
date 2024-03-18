@@ -3,7 +3,8 @@ import { z } from "zod";
 
 export const CodeExecutionType = z.object({
     code: z.string().trim().min(1),
-    lang: z.enum(["javascript", "cpp", "python"])
+    lang: z.enum(["javascript", "cpp", "python"]),
+    questionId: z.number(),
 })
 
 
@@ -38,3 +39,8 @@ export const validationCodeSchema = z.object({
 })
 
 
+
+export const userViewLangCodeSchema = z.object({
+    questionId: z.number(),
+    language: z.enum(["javascript", "cpp", "python"]),
+})

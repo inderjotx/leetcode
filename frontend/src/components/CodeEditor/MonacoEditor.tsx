@@ -62,6 +62,7 @@ export function MonacoEditor(data: EditorProps<boolean>) {
             value={data.value}
             onChange={handleChange}
             options={{
+                // quickSuggestions: false,
                 minimap: { enabled: false }
             }}
             beforeMount={() => loader.init()}

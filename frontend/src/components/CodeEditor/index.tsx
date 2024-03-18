@@ -1,5 +1,6 @@
 'use client'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import useSWR from 'swr'
 
 import { SelectLanguage } from './SelectLanguage';
 import { ExecuteCodeAction } from '@/actions/executeCode';
@@ -9,27 +10,46 @@ import { Button } from "@/components/ui/button";
 import { MonacoEditor } from './MonacoEditor';
 
 
-import {
-    ResizableHandle,
-    ResizablePanel,
-    ResizablePanelGroup,
-} from "@/components/ui/resizable"
 import { EditorWrapper } from './EditorWrapper';
 import { Code2 } from 'lucide-react';
+import { userViewLangCode } from '@/actions/userViewLangCode';
+import { date } from 'drizzle-orm/mysql-core';
 
 
 interface CodeEditorProps {
-    defaultCode: string
+    questionId: number
 }
 
 
 
-export function CodeEditor() {
+export function CodeEditor({ questionId }: CodeEditorProps) {
 
     const [code, setCode] = useState<string>("")
+    const [curLang, setLang] = useState<SupportedLangs>("javascript")
 
-    const [curLang, setLang] = useState<SupportedLangs>("python")
+    // @ts-ignore todo fix this
+    const { isLoading, data: defaultCode } = useSWR<UserViewLangCodeResponse<boolean>, any>(`${curLang}`, fetcher)
+
     const [result, setResult] = useState<string>("")
+
+
+    useEffect(() => {
+
+        if (!isLoading && defaultCode?.success && defaultCode.code) {
+            setCode(() => defaultCode.code)
+        }
+    }, [curLang, isLoading, defaultCode])
+
+
+
+
+    async function fetcher() {
+        const data = await userViewLangCode({ language: curLang, questionId: questionId })
+        return data
+    }
+
+
+
 
 
     async function handleClick() {
@@ -54,7 +74,7 @@ export function CodeEditor() {
         <div className='w-full h-full flex flex-col '>
             <div className='flex justify-between '>
                 <Button type="button" onClick={handleClick}>Submit </Button>
-                <SelectLanguage changeLang={(value: SupportedLangs) => setLang(value)} />
+                <SelectLanguage lang={curLang} changeLang={(value: SupportedLangs) => setLang(value)} />
             </div>
             <EditorWrapper Icon={Code2} height='h-[530px]' width='w-full' className='border' >
                 <MonacoEditor multiFile={false} value={code} setValue={setCode} lang={curLang} />
