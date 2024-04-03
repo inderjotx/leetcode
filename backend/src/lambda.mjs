@@ -21,7 +21,7 @@ export const handler = async (event) => {
 
 
 
-    let result, error, isError;
+    let result, error, success;
     const TEMP_DIR = '/tmp';
     const RESULT_FILE = '/tmp/result'
     let stateTime = new Date().getTime()
@@ -41,7 +41,6 @@ export const handler = async (event) => {
                 break;
             case 'cpp':
                 result = execCpp(code, outputFile);
-                isError = false;
                 break;
             default:
                 throw new Error(`Unsupported language: ${lang}`);
@@ -49,26 +48,28 @@ export const handler = async (event) => {
 
         }
 
-        isError = false;
+        success = true;
         result = fs.readFileSync(RESULT_FILE, 'utf8');
+        result = JSON.parse(result)
+
 
     } catch (err) {
         error = err.toString();
-        isError = true;
+        success = true;
     }
 
     let endTime = new Date().getTime()
+    result['time'] = endTime - stateTime
 
     const response = {
         result,
         error,
-        isError,
-        time: endTime - stateTime
+        success,
     }
 
     return {
         statusCode: 200,
-        body: JSON.stringify(response),
+        body: response,
     }
 
 };

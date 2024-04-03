@@ -14,7 +14,7 @@ interface EditorWrapperProps {
 
 export function EditorWrapper({ children, height, width, className, Icon = Code2 }: EditorWrapperProps) {
     return (
-        <div className={cn('flex flex-col rounded-sm bg-white dark:bg-[#1e1e1e]', className)}>
+        <div className={cn('flex flex-col rounded-sm overflow-hidden bg-white dark:bg-[#1e1e1e]', className)}>
 
             {/* banner */}
             <nav className='h-6 w-full border-b text-primary dark:bg-zinc-900 flex items-center p-2'>

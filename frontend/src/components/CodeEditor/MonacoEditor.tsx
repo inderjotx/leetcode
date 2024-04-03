@@ -1,6 +1,7 @@
 'use client'
 import { Editor, loader } from '@monaco-editor/react';
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 interface MultiFile<T> {
     lang: SupportedLangs,
@@ -22,12 +23,39 @@ type EditorProps<TMulti extends boolean> = TMulti extends true ? MultiFile<true>
 
 
 
-
 export function MonacoEditor(data: EditorProps<boolean>) {
 
+
+    const [defaultTheme, setDefaultTheme] = useState<"vs-dark" | "vs-light">("vs-light")
     const { theme } = useTheme()
 
-    const editorTheme = (theme === 'dark') ? "vs-dark" : "vs-light"
+
+
+    const editorTheme = theme === "dark" ? "vs-dark" : theme === "light" ? "vs-light" : defaultTheme
+
+
+
+
+
+
+
+    useEffect(() => {
+        console.log("this is called")
+        const handleColorSchemeChange = (event: MediaQueryListEvent) => {
+            const newColorScheme = event.matches ? 'vs-dark' : 'vs-light';
+            setDefaultTheme(newColorScheme);
+        };
+
+        const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQueryList.addEventListener('change', handleColorSchemeChange);
+
+        setDefaultTheme(mediaQueryList.matches ? 'vs-dark' : 'vs-light');
+
+        return () => {
+            mediaQueryList.removeEventListener('change', handleColorSchemeChange);
+        };
+    }, []);
+
 
 
 

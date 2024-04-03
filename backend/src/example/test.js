@@ -1,4 +1,4 @@
-import fs from 'fs'
+const fs = require('fs')
 
 class Main {
     constructor(testCases) {
@@ -20,6 +20,14 @@ class Main {
                 const response = this.reverseArray(testCase.input);
                 if (this.isArraySame(response, testCase.output)) {
                     testPassed++;
+                }
+                else {
+                    if (!hasErrorOccurred) {
+                        error.input = testCase.input;
+                        error.expected = testCase.output;
+                        error.error = "not equal";
+                        hasErrorOccurred = true;
+                    }
                 }
             } catch (err) {
                 if (!hasErrorOccurred) {
