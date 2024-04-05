@@ -1,1 +1,0 @@
-const panda="apple" ; console.log(panda)

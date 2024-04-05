@@ -42,12 +42,10 @@ export const Features = () => {
                                 viewport={{ once: true, amount: 0.9 }}
                                 key={d.title}
                                 className='h-[50vh] flex flex-col  items-center justify-center border' >
-
                                 <div className={cn(`flex  justify-center text-center border size-[300px] border-black flex-col gap-2 `, number === index ? "text-white" : "text-muted-foreground")} >
                                     <h2 className='text-2xl font-bold ' >{d.title}</h2>
                                     <h4 className='text-sm' >{d.description}</h4>
                                 </div>
-
                             </motion.div>
                         ))
                     }

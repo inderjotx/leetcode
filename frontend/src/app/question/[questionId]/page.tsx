@@ -1,3 +1,4 @@
+import { getYoutubeVideos } from "@/actions/getYoutubeVideos";
 import { CodeEditor } from "@/components/CodeEditor";
 import {
     ResizableHandle,
@@ -5,9 +6,7 @@ import {
     ResizablePanelGroup,
 } from "@/components/ui/resizable"
 import { getQuestionWithId } from "@/lib/db";
-import { Divide } from "lucide-react";
 import { redirect } from "next/navigation";
-import { Suspense } from "react";
 
 
 
@@ -18,6 +17,12 @@ export default async function Question({ params }: { params: { questionId: strin
     if (!question) {
         redirect('/')
     }
+
+    const youtubeData = await getYoutubeVideos(question.title)
+    const vidoeUrl = youtubeData.data?.map(e => {
+        return `https://www.youtube.com/embed/${e.id?.videoId}`
+    })
+
 
 
     return (
