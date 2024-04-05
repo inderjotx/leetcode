@@ -2,6 +2,7 @@ import React from 'react'
 import { ThemeToggle } from '../ThemeToggle'
 import { Button } from '../ui/button'
 import { auth, signIn, signOut } from '@/lib/auth'
+import { site } from '@/config'
 
 export async function Navbar() {
 
@@ -11,8 +12,8 @@ export async function Navbar() {
 
 
     return (
-        <nav className='sticky z-10   backdrop-blur-lg border-b top-0 px-6 h-10 w-full flex justify-between items-center  '>
-            <h1 className='text-xl'>Logo</h1>
+        <nav className='sticky z-10   backdrop-blur-lg border-b top-0 px-6 h-16 w-full flex justify-between items-center  '>
+            <h1 className=''> {site.name} </h1>
 
             <form
                 className='flex justify-between gap-3 items-center '
@@ -28,12 +29,12 @@ export async function Navbar() {
                 }} >
                 {
                     user ?
-                        <Button size={"sm"}>
+                        <Button className='px-1' size={"sm"}>
                             SignOut
                         </Button>
                         :
-                        <Button size={"sm"}>
-                            SignIn
+                        <Button className='px-3 h-11/12 py-1 text-sm' size={"sm"}>
+                            Log In
                         </Button>
 
                 }

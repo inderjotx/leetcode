@@ -1,5 +1,5 @@
 import * as React from "react"
-import { supportedLanguages } from "@/config/language"
+import { supportedLanguages } from "@/config"
 
 import {
     Select,

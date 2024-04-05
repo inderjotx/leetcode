@@ -40,7 +40,6 @@ export function MonacoEditor(data: EditorProps<boolean>) {
 
 
     useEffect(() => {
-        console.log("this is called")
         const handleColorSchemeChange = (event: MediaQueryListEvent) => {
             const newColorScheme = event.matches ? 'vs-dark' : 'vs-light';
             setDefaultTheme(newColorScheme);
@@ -54,6 +53,7 @@ export function MonacoEditor(data: EditorProps<boolean>) {
         return () => {
             mediaQueryList.removeEventListener('change', handleColorSchemeChange);
         };
+
     }, []);
 
 

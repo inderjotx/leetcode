@@ -26,3 +26,28 @@ export const escapeCharacters: { [key: string]: string } = {
     "yaml": "#",
     "markdown": ""
 };
+
+
+
+export const languageRegexes: { [key: string]: { classIdentifierRegex: RegExp, openingBraceRegex: RegExp, closingBraceRegex: RegExp } } = {
+    "cpp": {
+        classIdentifierRegex: /^\s*class\s+\w+\s*\{?\s*/,
+        openingBraceRegex: /^\s*\{?\s*/,
+        closingBraceRegex: /\s*}\s*$/,
+    },
+    "javascript": {
+        classIdentifierRegex: /^\s*class\s+\w+\s*\{?\s*/,
+        openingBraceRegex: /^\s*\{?\s*/,
+        closingBraceRegex: /\s*}\s*$/,
+    },
+    "python": {
+        classIdentifierRegex: /^\s*class\s+\w+\s*:\s*/,
+        openingBraceRegex: /^\s*:\s*/,
+        closingBraceRegex: /.*/,
+    },
+    "java": {
+        classIdentifierRegex: /^\s*class\s+\w+\s*\{?\s*/,
+        openingBraceRegex: /^\s*\{?\s*/,
+        closingBraceRegex: /\s*}\s*$/,
+    },
+};

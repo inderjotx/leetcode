@@ -57,9 +57,9 @@ export function CodeEditor({ questionId }: CodeEditorProps) {
         console.log(code)
 
         const response = await ExecuteCodeAction({ lang: curLang, code: code, questionId: questionId })
-        if (response.success && response.result && response.result.result) {
-            console.log(response.result.result)
-            setResult(response.result?.result)
+        if (response.success) {
+            console.log(response.result)
+            // setResult(response.result.)
         }
         else {
             console.log(response.error)

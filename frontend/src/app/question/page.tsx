@@ -5,7 +5,6 @@ import React from 'react'
 export default async function page() {
 
     const questions = await getQuestion()
-    console.log(questions)
 
     return (
         <div>

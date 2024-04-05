@@ -62,3 +62,63 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+
+.bg_blur::after {
+  content: "";
+  @apply absolute md:-inset-[5px] inset-x-0 top-5 bottom-28 filter blur-2xl bg-primary/30 -z-10
+}
+
+
+
+
+
+/* more information about moving border animation */
+/*  https://www.youtube.com/watch?v=BjeoJu6agQk */
+.moving_border {
+    --offset: 1px;
+    position: relative;
+    height: 30px;
+    width: 320px;
+    overflow: hidden;
+}
+
+.moving_border::before { 
+    content: '';
+    background: conic-gradient(transparent 270deg, white, transparent);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    aspect-ratio: 1;
+    width: 100%;
+    animation: rotate 3s linear infinite;
+}
+
+.moving_border::after {
+    content: '';
+    background: inherit;
+    border-radius: inherit;
+    position: absolute;
+    inset: var(--offset);
+    height: calc(100% - 2 * var(--offset));
+    width: calc(100% - 2 * var(--offset));
+}
+
+.moving_border_element {
+    color: white;
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+}
+
+@keyframes rotate {
+    from {
+        transform: translate(-50%, -50%) scale(1.4) rotate(0turn);
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1.4) rotate(1turn);
+    }
+}

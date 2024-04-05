@@ -1,29 +1,38 @@
 
 
-interface ExecuteCodeActionResponse {
-    result?: JsonBody,
-    error: any,
+type ExecuteCodeActionResponse<T extends boolean> = T extends true ? {
+    result: result,
+    success: T,
+}
+    : {
+        error: any,
+        success: T,
+    }
+
+// interface JsonBody {
+//     result: string,
+//     isError: boolean,
+//     error?: any
+// }
+
+
+
+interface result {
+    totalTestCases: number,
+    noOfTestCasesPassed: number,
     success: boolean,
+    error: any,
+    time: number
 }
-
-
-interface JsonBody {
-    result: string,
-    isError: boolean,
-    error?: any
-}
-
 
 
 interface ApiGatewayResponse {
     statusCode: number,
-    body: string
-    // stringified
-    //    body : {
-    //         result: string,
-    //         isError: boolean,
-    //         error: any
-    //     }
+    body: {
+        result: result,
+        isError: boolean,
+        error: any
+    }
 }
 
 interface CodeFiles {

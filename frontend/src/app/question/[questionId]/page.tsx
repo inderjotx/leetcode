@@ -1,15 +1,11 @@
-
 import { CodeEditor } from "@/components/CodeEditor";
-import { EditorWrapper } from "@/components/CodeEditor/EditorWrapper";
-import { LoadingCodeEditor } from "@/components/CodeEditor/Loading";
 import {
     ResizableHandle,
     ResizablePanel,
     ResizablePanelGroup,
 } from "@/components/ui/resizable"
 import { getQuestionWithId } from "@/lib/db";
-import { cn } from "@/lib/utils";
-import { Code2 } from "lucide-react";
+import { Divide } from "lucide-react";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
@@ -21,7 +17,6 @@ export default async function Question({ params }: { params: { questionId: strin
 
     if (!question) {
         redirect('/')
-        return
     }
 
 
@@ -64,16 +59,3 @@ export default async function Question({ params }: { params: { questionId: strin
 
 }
 
-
-// <ResizablePanelGroup direction="horizontal" className="px-4" >
-//     <ResizablePanel minSize={5} defaultSize={40} >
-//         Question data
-//     </ResizablePanel>
-
-//     <ResizableHandle withHandle className="bg-background" />
-//     <ResizablePanel minSize={5} defaultSize={60} >
-//         <Suspense fallback={<LoadingCodeEditor />} >
-//             <CodeEditor />
-//         </Suspense>
-//     </ResizablePanel>
-// </ResizablePanelGroup>

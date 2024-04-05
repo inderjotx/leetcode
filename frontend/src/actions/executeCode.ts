@@ -1,6 +1,6 @@
 "use server"
 
-import { API_GATEWAY_CODE_ENDPOINT } from "@/config/endpoints"
+import { API_GATEWAY_CODE_ENDPOINT } from "@/config"
 import { CodeExecutionType } from "@/lib/validators/schema"
 
 import { getQuestionTestCases } from "./getQuestionTestCases"
@@ -18,7 +18,7 @@ interface ExecuteCodeProps {
 // get testcases from the database 
 
 
-export async function ExecuteCodeAction(data: ExecuteCodeProps): Promise<ExecuteCodeActionResponse> {
+export async function ExecuteCodeAction(data: ExecuteCodeProps): Promise<ExecuteCodeActionResponse<boolean>> {
 
     const result = CodeExecutionType.safeParse(data)
 
@@ -54,22 +54,21 @@ export async function ExecuteCodeAction(data: ExecuteCodeProps): Promise<Execute
         })
 
         const jsonData: ApiGatewayResponse = await response.json()
+
+        console.log('response from api gateway')
         console.log(jsonData)
-        const jsonBody: JsonBody = JSON.parse(jsonData.body)
-        console.log(jsonBody)
 
 
-        if (jsonData.statusCode == 200) {
+        if (jsonData.statusCode == 200 && !jsonData.body.isError) {
             return {
                 success: true,
-                result: jsonBody,
-                error: null
+                result: jsonData.body.result,
             }
         }
         else {
             return {
                 success: false,
-                error: jsonBody
+                error: jsonData.body?.error || "error"
             }
 
         }

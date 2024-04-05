@@ -1,4 +1,4 @@
-import { escapeCharacters } from "@/constants";
+import { escapeCharacters, languageRegexes } from "@/constants";
 
 
 
@@ -6,6 +6,10 @@ export function combineCode(userCode: string, lang: SupportedLangs, validationCl
 
     const excapeChar = escapeCharacters[lang]
     const extractedCode = extractUserCodeFromClass(userCode, lang)
+
+    console.log("extracted code")
+    console.log(extractedCode)
+
     const fullCode = validationClass.replace(`${excapeChar}INSERT_USER_CODE_HERE`, extractedCode)
     return fullCode
 
@@ -14,15 +18,37 @@ export function combineCode(userCode: string, lang: SupportedLangs, validationCl
 
 
 
-function extractUserCodeFromClass(code: string, lang: SupportedLangs): string {
-    const regex = {
-        'python': /class\s+\w+:(\s*[\s\S]*?)\s*(?=\n\s*(?:class|$))/,
-        'javascript': /class\s+\w+\s*\{(\s*[\s\S]*?(?:\s*\{[\s\S]*?\}\s*)*)\s*\}/,
-        'cpp': /class\s+\w+\s*\{(\s*[\s\S]*?(?:\s*\{[\s\S]*?\}\s*)*)\s*\}\s*;/,
-        'java': /(?:public\s+)?class\s+\w+\s*\{(\s*[\s\S]*?(?:\s*\{[\s\S]*?\}\s*)*)\s*\}/
-    };
+function extractUserCodeFromClass(code: string, lang: SupportedLangs) {
 
-    const pattern = regex[lang];
-    const match = code.match(pattern);
-    return match ? match[1].trim() : "";
+    // find index of start 
+    // find index of end 
+
+    // get string from start + 1 to end ( not included )
+
+
+    const excapeChar = escapeCharacters[lang]
+
+    const lengthOfBeing = `${excapeChar}START`.length
+
+    const startIdx = code.indexOf(`${excapeChar}START`)
+    const endIdx = code.indexOf(`${excapeChar}END`)
+
+    const extractedCode = code.slice(startIdx + lengthOfBeing, endIdx)
+
+    return extractedCode
+
+
 }
+
+
+
+
+// function extractUserCodeFromClass(code: string, language: SupportedLangs): string {
+//     const { classIdentifierRegex, openingBraceRegex, closingBraceRegex } = languageRegexes[language];
+
+//     const codeWithoutClassIdentifier = code.replace(classIdentifierRegex, "");
+//     const codeWithoutOpeningBrace = codeWithoutClassIdentifier.replace(openingBraceRegex, "");
+//     const extractedCode = codeWithoutOpeningBrace.replace(closingBraceRegex, "");
+
+//     return extractedCode;
+// }
