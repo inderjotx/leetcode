@@ -27,9 +27,7 @@ yarn-error.log*
 
 # Ignore local env files at any level
 **/.env*.local
-**/.env
-
-frontend/.env
+**/.en
 
 # Ignore .vercel directory at any level
 **/.vercel
