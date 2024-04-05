@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/Provider/ThemeProvider"
 import { Navbar } from "@/components/Navbar";
 import { Toaster } from 'sonner'
 import { site } from '@/config'
+import { SocketProvider } from "@/components/Provider/SocketProvider";
 
 
 
@@ -32,7 +33,9 @@ export default function RootLayout({
         >
           <Navbar />
           <Toaster richColors />
-          {children}
+          <SocketProvider>
+            {children}
+          </SocketProvider>
         </ThemeProvider>
       </body>
     </html>

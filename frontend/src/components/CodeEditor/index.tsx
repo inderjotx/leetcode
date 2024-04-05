@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import useSWR from 'swr'
 
 import { SelectLanguage } from './SelectLanguage';
@@ -13,7 +13,7 @@ import { MonacoEditor } from './MonacoEditor';
 import { EditorWrapper } from './EditorWrapper';
 import { Code2 } from 'lucide-react';
 import { userViewLangCode } from '@/actions/userViewLangCode';
-import { date } from 'drizzle-orm/mysql-core';
+import { useSocket } from '../Provider/SocketProvider';
 
 
 interface CodeEditorProps {
@@ -24,7 +24,7 @@ interface CodeEditorProps {
 
 export function CodeEditor({ questionId }: CodeEditorProps) {
 
-    const [code, setCode] = useState<string>("")
+    const { code, setCode } = useSocket()
     const [curLang, setLang] = useState<SupportedLangs>("javascript")
 
     // @ts-ignore todo fix this
@@ -38,7 +38,7 @@ export function CodeEditor({ questionId }: CodeEditorProps) {
         if (!isLoading && defaultCode?.success && defaultCode.code) {
             setCode(() => defaultCode.code)
         }
-    }, [curLang, isLoading, defaultCode])
+    }, [curLang, isLoading, defaultCode, setCode])
 
 
 
@@ -71,7 +71,6 @@ export function CodeEditor({ questionId }: CodeEditorProps) {
 
 
     return (
-
         <div className='w-full h-full flex flex-col '>
             <div className='flex justify-between '>
                 <Button type="button" onClick={handleClick}>Submit </Button>

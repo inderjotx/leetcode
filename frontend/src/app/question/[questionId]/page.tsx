@@ -19,6 +19,8 @@ export default async function Question({ params }: { params: { questionId: strin
     }
 
     const youtubeData = await getYoutubeVideos(question.title)
+
+
     const vidoeUrl = youtubeData.data?.map(e => {
         return `https://www.youtube.com/embed/${e.id?.videoId}`
     })

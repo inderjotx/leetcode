@@ -30,6 +30,7 @@ yarn-error.log*
 **/.env
 
 frontend/.env
+backend/.env
 
 # Ignore .vercel directory at any level
 **/.vercel
