@@ -14,6 +14,7 @@ import { EditorWrapper } from './EditorWrapper';
 import { Code2 } from 'lucide-react';
 import { userViewLangCode } from '@/actions/userViewLangCode';
 import { useSocket } from '../Provider/SocketProvider';
+import { Input } from '../ui/input';
 
 
 interface CodeEditorProps {
@@ -24,7 +25,7 @@ interface CodeEditorProps {
 
 export function CodeEditor({ questionId }: CodeEditorProps) {
 
-    const { code, setCode } = useSocket()
+    const { code, setCode, joinRoom, createRoom } = useSocket()
     const [curLang, setLang] = useState<SupportedLangs>("javascript")
 
     // @ts-ignore todo fix this
@@ -36,7 +37,7 @@ export function CodeEditor({ questionId }: CodeEditorProps) {
     useEffect(() => {
 
         if (!isLoading && defaultCode?.success && defaultCode.code) {
-            setCode(() => defaultCode.code)
+            setCode(defaultCode.code)
         }
     }, [curLang, isLoading, defaultCode, setCode])
 
@@ -61,6 +62,7 @@ export function CodeEditor({ questionId }: CodeEditorProps) {
             console.log(response.result)
             // setResult(response.result.)
         }
+
         else {
             console.log(response.error)
             setResult(response.error)
@@ -72,14 +74,31 @@ export function CodeEditor({ questionId }: CodeEditorProps) {
 
     return (
         <div className='w-full h-full flex flex-col '>
+
             <div className='flex justify-between '>
-                <Button type="button" onClick={handleClick}>Submit </Button>
+                <div>
+                    <Button type="button" onClick={handleClick}>Submit </Button>
+                    <Button type="button" onClick={createRoom}>Create Room</Button>
+                    <form action={(data: FormData) => {
+
+                        const roomId = data.get('roomId')
+
+                        if (roomId) {
+                            joinRoom(roomId.toString())
+                        }
+
+                    }} >
+                        <Input name="roomId" type='text' />
+                        <Button type='submit' >Join Room</Button>
+                    </form>
+                </div>
+
                 <SelectLanguage lang={curLang} changeLang={(value: SupportedLangs) => setLang(value)} />
             </div>
             <EditorWrapper Icon={Code2} height='h-[530px]' width='w-full' className='border' >
                 <MonacoEditor multiFile={false} value={code} setValue={setCode} lang={curLang} />
             </EditorWrapper>
-        </div>
+        </div >
     )
 }
 

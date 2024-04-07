@@ -18,12 +18,12 @@ export default async function Question({ params }: { params: { questionId: strin
         redirect('/')
     }
 
-    const youtubeData = await getYoutubeVideos(question.title)
+    // const youtubeData = await getYoutubeVideos(question.title)
 
 
-    const vidoeUrl = youtubeData.data?.map(e => {
-        return `https://www.youtube.com/embed/${e.id?.videoId}`
-    })
+    // const vidoeUrl = youtubeData.data?.map(e => {
+    //     return `https://www.youtube.com/embed/${e.id?.videoId}`
+    // })
 
 
 
@@ -51,6 +51,9 @@ export default async function Question({ params }: { params: { questionId: strin
                         {/*todo: beutiful testcase compoentn */}
                         <div>
                         </div>
+
+
+
 
                     </div>
 
